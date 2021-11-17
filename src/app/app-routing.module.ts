@@ -6,6 +6,7 @@ import { UnauthorizedComponent } from './error/unauthorized/unauthorized.compone
 import { HomeComponent } from './guest/home/home.component';
 import { LoginComponent } from './guest/login/login.component';
 import { SignupComponent } from './guest/signup/signup.component';
+import { UserticketComponent } from './user/userticket/userticket.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: SignupComponent},
+  {path: 'tickets', component: UserticketComponent},
 
   { path: 'admin',
   component: AdminComponent,

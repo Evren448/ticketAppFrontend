@@ -11,7 +11,7 @@
           <div class="row">
   
             <div class="col-4">
-              <h3>All Vehicles</h3>
+              <h3>All Tickets</h3>
             </div>
   
             <!-- <div class="col-1 text-center">
@@ -35,7 +35,7 @@
           
   
             <div class="col-4 text-end">
-              <button class="btn btn-primary" (click)="createVehicleRequest()">Create a Vehicle</button>
+              <button class="btn btn-primary">Create a Ticket</button>
             </div>
           </div>
         </div>
@@ -44,26 +44,33 @@
             <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Vehicle ID</th>
-              <th scope="col">Name</th>
+              <th scope="col">Ticket ID</th>
+              <th scope="col">Fullname</th>
               <th scope="col">Start</th>
               <th scope="col">End</th>
-              <th scope="col">Capacity</th>
+              <th scope="col">Status</th>
+              <!-- <th scope="col">userId</th>
+              <th scope="col">vehicleId</th>
+              <th scope="col">routeId</th> -->
               <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let item of vehicleList; index as ind">
+            <tr *ngFor="let item of ticketList; index as ind">
               <!-- <th scope="row"></th> -->
               <td>{{ind + 1}}</td>
               <td>{{item.id}}</td>
-              <td>{{item.name}}</td>
-              <td>{{item.beginPoint}}</td>
-              <td>{{item.endPoint}}</td>
-              <td>{{item.seatingCapacity}}</td>
+              <td>{{item.ticketOwner}}</td>
+              <td>{{item.routeStart}}</td>
+              <td>{{item.routeEnd}}</td>
+              <td>{{item.status}}</td>
+              <!-- <td>{{item.userId}}</td>
+              <td>{{item.vehicleId}}</td>
+  
+              <td>{{item.routeId}}</td> -->
               <td>
-                <button class="btn btn-primary me-1" (click)="editVehicleRequest(item)">Edit</button>
-                <button class="btn btn-danger" (click)="deleteVehicle(item,ind)">Delete</button>
+                <button class="btn btn-primary me-1" (click)="editTicketRequest(item)">Edit</button>
+                <button class="btn btn-danger" (click)="deleteTicket(item,ind)">Delete</button>
               </td>
             </tr>
             </tbody>
@@ -72,7 +79,7 @@
       </div>
     </div>
   </div>
-<app-vehicles-modal [vehicle]="selectedVehicle" (save)="saveVehicleWatcher($event)"></app-vehicles-modal>
+  <app-user-modal-ticket [ticket]="selectedTicket" (save)="saveTicketWatcher($event)"></app-user-modal-ticket>
   
   <!-- <h2>Section title</h2>
   <div class="table-responsive">

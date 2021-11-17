@@ -16,8 +16,8 @@
       <li class="nav-item">
         <a [routerLink]="['/home']" routerLinkActive="active" class="nav-link">Home</a>
       </li>
-      <li class="nav-item">
-        <a [routerLink]="['/home']" *ngIf="isAdmin() || isUser()" routerLinkActive="active" class="nav-link">Ticket</a>
+      <li class="nav-item" *ngIf="isAdmin() || isUser()">
+        <a [routerLink]="['/tickets']"  routerLinkActive="active" class="nav-link">My Tickets</a>
       </li>
     </div>
     <div class="navbar-nav ms-auto" *ngIf="!currentUser?.id">

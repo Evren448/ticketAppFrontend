@@ -11,6 +11,8 @@
             <div class="alert alert-danger" *ngIf="errorMessage">
               <strong>Error!</strong> {{ errorMessage }}
             </div>
+
+            
   
             <div class="form-group">
               <label for="name">Name</label>
@@ -27,6 +29,75 @@
                 >Name is required.
               </div>
             </div>
+
+            <div class="form-group">
+              <label for="routeId">Route</label>
+              <select
+                class="form-control"
+                id="routeId"
+                name="routeId"
+                [(ngModel)]="vehicle.routeId"
+                #routeId="ngModel"
+                required
+              >
+                <option disabled>Select Route</option>
+                <option *ngFor="let route of routeList" [ngValue]="route.id">{{ route.begin }} to {{route.end}}</option>
+              </select>
+              <div class="alert-danger" *ngIf="f.submitted && !routeId.valid">
+                Route is required.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="seatingCapacity">Seating Capacity</label>
+              <input
+                type="number"
+                step="5"
+                id="seatingCapacity"
+                name="seatingCapacity"
+                class="form-control"
+                [(ngModel)]="vehicle.seatingCapacity"
+                #seatingCapacity="ngModel"
+                required
+              />
+              <div class="alert-danger" *ngIf="f.submitted && !seatingCapacity.valid">
+                >Seating Capacity is required.
+              </div>
+            </div>
+
+
+            <!-- <div class="form-group">
+              <label for="beginPoint">Start Point</label>
+              <input
+                type="text"
+                id="beginPoint"
+                name="beginPoint"
+                class="form-control"
+                [(ngModel)]="vehicle.beginPoint"
+                #beginPoint="ngModel"
+                required
+              />
+              <div class="alert-danger" *ngIf="f.submitted && !beginPoint.valid">
+                >Start Point is required.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="endPoint">End Point</label>
+              <input
+                type="text"
+                id="endPoint"
+                name="endPoint"
+                class="form-control"
+                [(ngModel)]="vehicle.endPoint"
+                #endPoint="ngModel"
+                required
+              />
+              <div class="alert-danger" *ngIf="f.submitted && !endPoint.valid">
+                >End Point is required.
+              </div>
+            </div> -->
+
   
           </div>
   
@@ -70,6 +141,74 @@
                 >Name is required.
               </div>
             </div>
+
+            <div class="form-group">
+              <label for="routeId">Route</label>
+              <select
+                class="form-control"
+                id="routeId"
+                name="routeId"
+                [(ngModel)]="vehicle.routeId"
+                #routeId="ngModel"
+                required
+              >
+                <option disabled>Select Route</option>
+                <option *ngFor="let route of routeList" [ngValue]="route.id">{{ route.begin }} to {{route.end}}</option>
+              </select>
+              <div class="alert-danger" *ngIf="f.submitted && !routeId.valid">
+                Route is required.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="seatingCapacity">Seating Capacity</label>
+              <input
+                type="number"
+                step="5"
+                id="seatingCapacity"
+                name="seatingCapacity"
+                class="form-control"
+                [(ngModel)]="vehicle.seatingCapacity"
+                #seatingCapacity="ngModel"
+                required
+              />
+              <div class="alert-danger" *ngIf="f.submitted && !seatingCapacity.valid">
+                >Seating Capacity is required.
+              </div>
+            </div>
+
+            <!-- <div class="form-group">
+              <label for="beginPoint">Start Point</label>
+              <input
+                type="text"
+                id="beginPoint"
+                name="beginPoint"
+                class="form-control"
+                [(ngModel)]="vehicle.beginPoint"
+                #beginPoint="ngModel"
+                required
+              />
+              <div class="alert-danger" *ngIf="f.submitted && !beginPoint.valid">
+                >Start Point is required.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="endPoint">End Point</label>
+              <input
+                type="text"
+                id="endPoint"
+                name="endPoint"
+                class="form-control"
+                [(ngModel)]="vehicle.endPoint"
+                #endPoint="ngModel"
+                required
+              />
+              <div class="alert-danger" *ngIf="f.submitted && !endPoint.valid">
+                >End Point is required.
+              </div>
+            </div> -->
+
   
           </div>
   

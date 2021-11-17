@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Route } from 'src/app/models/route-model';
 import { Vehicle } from 'src/app/models/vehicle-model';
+import { RouteService } from 'src/app/services/route.service';
 import { VehicleService } from 'src/app/services/vehicle.service';
 
 declare var $: any;
@@ -14,12 +16,15 @@ export class VehiclesModalComponent implements OnInit {
 
   errorMessage : string = "";
     
-  roleList: any = ['ADMIN', 'USER']
+  routeList:  Array<Route> = [];
   @Input() vehicle : Vehicle = new Vehicle();
   @Output() save = new EventEmitter<any>();
-  constructor(private vehicleService : VehicleService) { }
+  constructor(private vehicleService : VehicleService, private routeService : RouteService) { }
 
   ngOnInit(): void {
+    this.routeService.getAllRoutes().subscribe((data) => {
+      this.routeList = data;
+    });
   }
 
   saveVehicle() {

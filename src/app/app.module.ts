@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from "@angular/common";
 
 import { AppRoutingModule } from './app-routing.module';
 import {HttpClientModule} from "@angular/common/http";
@@ -17,10 +18,14 @@ import { RouteModalComponent } from './admin/routes/route-modal/route-modal.comp
 import { VehiclesComponent } from './admin/vehicles/vehicles.component';
 import { VehiclesModalComponent } from './admin/vehicles/vehicles-modal/vehicles-modal.component';
 import { TicketsComponent } from './admin/tickets/tickets.component';
+import { UserticketComponent } from './user/userticket/userticket.component';
+import { UserModalTicketComponent } from './user/userticket/user-modal-ticket/user-modal-ticket.component';
+import { HomeComponent } from './guest/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,    LoginComponent,
+    HomeComponent,
     SignupComponent,
     NotFoundComponent,
     UnauthorizedComponent,
@@ -31,13 +36,16 @@ import { TicketsComponent } from './admin/tickets/tickets.component';
     RouteModalComponent,
     VehiclesComponent,
     VehiclesModalComponent,
-    TicketsComponent
+    TicketsComponent,
+    UserticketComponent,
+    UserModalTicketComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
