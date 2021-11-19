@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Status } from 'src/app/models/status-enum';
 import { Ticket } from 'src/app/models/ticket-model';
 import { User } from 'src/app/models/user-model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,6 +12,12 @@ import { UserModalTicketComponent } from './user-modal-ticket/user-modal-ticket.
   styleUrls: ['./userticket.component.css']
 })
 export class UserticketComponent implements OnInit {
+
+  begin : string = "";
+  end : string = "";
+  status : Status = Status.CANCALLED;
+  date : Date = new Date();
+
 
   ticketList: Array<Ticket> = [];
   selectedTicket: Ticket = new Ticket();
@@ -52,6 +59,16 @@ export class UserticketComponent implements OnInit {
     } else {
       this.ticketList.push(ticket);
     }
+  }
+
+  clickme1(){
+
+    this.ticketService.getAllTicketsByStatusAndDateAndBeginAndEndAndUserId(this.status, this.date,this.begin, this.end, this.user).subscribe(data =>{
+      this.ticketList = data;
+    }, err =>{
+      this.errorMessage = err.error.message;
+      
+    })
   }
 
 }

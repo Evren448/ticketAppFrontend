@@ -6,7 +6,7 @@
         alt="Ticket Logo"
         src="https://i.imgur.com/OvMZBs9.jpg"
       />
-      Ticket
+      {{title}}
     </a>
   
     <div class="navbar-nav me-auto">
@@ -33,7 +33,7 @@
     <div class="navbar-nav ms-auto" *ngIf="currentUser?.id">
       
       <li class="nav-item">
-        <a [routerLink]="['/home']" routerLinkActive="active" class="nav-link" >
+        <a [routerLink]="['/tickets']" routerLinkActive="active" class="nav-link" >
           {{currentUser.username}}
         </a>
       </li>

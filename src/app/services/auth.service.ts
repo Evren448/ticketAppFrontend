@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user-model';
 import {map} from "rxjs/operators";
+import { Route } from '../models/route-model';
 const API_URL = `${environment.BASE_URL}/api/authentication/`
 
 @Injectable({
@@ -26,6 +27,7 @@ export class AuthService {
 
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
+    
   }
 
   login(user: User): Observable<any> {

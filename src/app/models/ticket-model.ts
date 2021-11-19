@@ -9,4 +9,8 @@ export class Ticket{
     ticketOwner : string = "";
     routeStart : string = "";
     routeEnd : string = "";
+    seatingCapacity : number | undefined;
+    availableCapacity : number | undefined;
+    vehicleDate : Date = new Date();
+    vehicleName : string = "";
 }

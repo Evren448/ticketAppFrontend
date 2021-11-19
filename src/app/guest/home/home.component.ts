@@ -14,11 +14,15 @@ import { VehicleService } from 'src/app/services/vehicle.service';
 })
 export class HomeComponent implements OnInit {
 
+  begin : string = "";
+  end : string = "";
+
   vehicleList: Array<Vehicle> = [];
   user : User = new User();
   //selectedVehicle: Vehicle = new Vehicle();
   errorMessage: string = '';
-  constructor(private authService : AuthService, private homePageService : HomepageService, private ticketService : TicketService) { }
+  ticket : Ticket = new Ticket();
+  constructor(private authService : AuthService, private homePageService : HomepageService, private vehicleService : VehicleService) { }
 
   ngOnInit(): void {
     this.user = this.authService.currentUserValue;
@@ -28,9 +32,36 @@ export class HomeComponent implements OnInit {
   }
 
   buyTicket(vehicle : Vehicle, ind: number){
+
+    this.ticket.routeId = vehicle.routeId;
+    this.ticket.routeStart = vehicle.beginPoint;
+    this.ticket.routeEnd = vehicle.endPoint;
+    this.ticket.vehicleId = vehicle.id;
     
+    this.ticket.userId = this.user.id;
+
+    this.homePageService.saveTicket(this.ticket).subscribe(
+      (data) => {
+        //Alertifyjs
+        alert("bilet alindi.");
+      },
+      (err) => {
+        this.errorMessage = err.error.message;
+        console.log(err);
+      }
+    );
+
+   
   
   }
-  
+  clickme(){
+
+    this.vehicleService.getAllVehiclesRoute(this.begin,this.end).subscribe(data =>{
+      this.vehicleList = data;
+    }, err =>{
+      this.errorMessage = err.error.message;
+      
+    })
+  }
 
 }

@@ -5,4 +5,6 @@ export class Vehicle{
     beginPoint: string ="";
     endPoint: string ="";
     seatingCapacity : number | undefined;
+    availableCapacity : number | undefined;
+    vehicleDate : Date = new Date();
 }

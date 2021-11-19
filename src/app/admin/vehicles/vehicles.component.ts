@@ -10,6 +10,9 @@ import { VehiclesModalComponent } from './vehicles-modal/vehicles-modal.componen
 })
 export class VehiclesComponent implements OnInit {
 
+  begin : string = "";
+  end : string = "";
+
   vehicleList: Array<Vehicle> = [];
   selectedVehicle: Vehicle = new Vehicle();
   errorMessage: string = '';
@@ -52,6 +55,16 @@ export class VehiclesComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  clickme(){
+
+    this.vehicleService.getAllVehiclesRoute(this.begin,this.end).subscribe(data =>{
+      this.vehicleList = data;
+    }, err =>{
+      this.errorMessage = err.error.message;
+      
+    })
   }
 
 }

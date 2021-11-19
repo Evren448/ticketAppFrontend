@@ -40,4 +40,9 @@ export class VehicleService extends RequestBaseService{
     return this.http.get(`${API_URL}/get/${id}`, {headers: this.getHeaders});
 
   }
+  //http://localhost:8080/api/vehicle/getStartEnd?begin=Izmir&end=Istanbul
+  getAllVehiclesRoute(begin : string, end : string) : Observable<any> {
+    return this.http.get(`${API_URL}/getStartEnd?begin=${begin}&&end=${end}`, {headers: this.getHeaders});
+    
+  }
 }
