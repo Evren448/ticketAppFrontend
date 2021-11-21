@@ -7,60 +7,59 @@ declare var $: any;
 @Component({
   selector: 'app-route-modal',
   templateUrl: './route-modal.component.html',
-  styleUrls: ['./route-modal.component.css']
+  styleUrls: ['./route-modal.component.css'],
 })
 export class RouteModalComponent implements OnInit {
+  errorMessage: string = '';
 
-  errorMessage : string = "";
-    
-  roleList: any = ['ADMIN', 'USER']
-  @Input() route : Route = new Route();
+  roleList: any = ['ADMIN', 'USER'];
+  @Input() route: Route = new Route();
   @Output() save = new EventEmitter<any>();
 
-  constructor(private routeService : RouteService) { }
+  constructor(private routeService: RouteService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   saveRoute() {
-
-    this.routeService.saveRoute(this.route).subscribe(data => {
-      this.save.emit(data);
-      $("#routeSaveModal").modal("hide");
-    }, err => {
-      this.errorMessage = 'Unexpected error occurred.';
-      console.log(err);
-    })
+    this.routeService.saveRoute(this.route).subscribe(
+      (data) => {
+        this.save.emit(data);
+        $('#routeSaveModal').modal('hide');
+      },
+      (err) => {
+        this.errorMessage = err.error;
+        console.log(err);
+      }
+    );
   }
 
   updateRoute() {
+    this.routeService.updateRoute(this.route).subscribe(
+      (data) => {
+        this.save.emit(data);
+        $('#routeUpdateModal').modal('hide');
+      },
+      (err) => {
+        this.errorMessage = err.error;
 
-    this.routeService.updateRoute(this.route).subscribe(data => {
-      this.save.emit(data);
-      $("#routeUpdateModal").modal("hide");
-    }, err => {
-      if (err?.status === 409) {
-        this.errorMessage = 'Route already exist.';
-      } else {
-        this.errorMessage = 'Unexpected error occurred. Error is: ' + err.error
         console.log(err);
       }
-    })
+    );
   }
 
-  closeSaveModal(){
-    $("#routeSaveModal").modal("hide");
+  closeSaveModal() {
+    $('#routeSaveModal').modal('hide');
   }
 
-  closeUpdateModal(){
-    $("#routeUpdateModal").modal("hide");
+  closeUpdateModal() {
+    $('#routeUpdateModal').modal('hide');
   }
 
-  showSaveRouteModal(){
-    $("#routeSaveModal").modal("show");
+  showSaveRouteModal() {
+    $('#routeSaveModal').modal('show');
   }
 
-  showUpdateRouteModal(){
-    $("#routeUpdateModal").modal("show");
+  showUpdateRouteModal() {
+    $('#routeUpdateModal').modal('show');
   }
 }

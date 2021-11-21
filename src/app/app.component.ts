@@ -7,16 +7,15 @@ import { AuthService } from './services/auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-
   title = 'Ticket-Angular';
 
   currentUser: User = new User();
 
   constructor(private authService: AuthService, private router: Router) {
-    this.authService.currentUser.subscribe(data => {
+    this.authService.currentUser.subscribe((data) => {
       this.currentUser = data;
     });
   }
@@ -33,5 +32,4 @@ export class AppComponent {
   isUser() {
     return this.currentUser?.role === Role.USER;
   }
-
 }

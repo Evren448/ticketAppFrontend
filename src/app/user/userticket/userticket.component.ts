@@ -9,27 +9,30 @@ import { UserModalTicketComponent } from './user-modal-ticket/user-modal-ticket.
 @Component({
   selector: 'app-userticket',
   templateUrl: './userticket.component.html',
-  styleUrls: ['./userticket.component.css']
+  styleUrls: ['./userticket.component.css'],
 })
 export class UserticketComponent implements OnInit {
-
-  begin : string = "";
-  end : string = "";
-  status : Status = Status.CANCALLED;
-  date : Date = new Date();
-
+  begin: string = '';
+  end: string = '';
+  status: Status = Status.CANCALLED;
+  date: Date = new Date();
 
   ticketList: Array<Ticket> = [];
   selectedTicket: Ticket = new Ticket();
-  errorMessage: string = "";
-  user : User = new User();
+  errorMessage: string = '';
+  user: User = new User();
 
-  @ViewChild(UserModalTicketComponent) child: UserModalTicketComponent | undefined;
-  constructor(private ticketService : TicketService, private authService: AuthService) { }
+  @ViewChild(UserModalTicketComponent) child:
+    | UserModalTicketComponent
+    | undefined;
+  constructor(
+    private ticketService: TicketService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.user = this.authService.currentUserValue;
-    this.ticketService.getUserTickets(this.user).subscribe(data => {
+    this.ticketService.getUserTickets(this.user).subscribe((data) => {
       this.ticketList = data;
       console.log(data);
     });
@@ -41,7 +44,7 @@ export class UserticketComponent implements OnInit {
         this.ticketList.splice(ind, 1);
       },
       (err) => {
-        //this.errorMessage = 'Admin kullanicilar silinemez.';
+        this.errorMessage = err.error;
         console.log(err);
       }
     );
@@ -61,14 +64,34 @@ export class UserticketComponent implements OnInit {
     }
   }
 
-  clickme1(){
-
-    this.ticketService.getAllTicketsByStatusAndDateAndBeginAndEndAndUserId(this.status, this.date,this.begin, this.end, this.user).subscribe(data =>{
-      this.ticketList = data;
-    }, err =>{
-      this.errorMessage = err.error.message;
-      
-    })
+  SearchList() {
+    this.ticketService
+      .getAllTicketsByStatusAndDateAndBeginAndEndAndUserId(
+        this.status,
+        this.date,
+        this.begin,
+        this.end,
+        this.user
+      )
+      .subscribe(
+        (data) => {
+          this.ticketList = data;
+        },
+        (err) => {
+          if (err?.status === 400) {
+            this.errorMessage = 'Butun alanlari lutfen doldurun.';
+          } else {
+            this.errorMessage = err.error;
+          }
+        }
+      );
   }
 
+  ResetList(){
+    this.ngOnInit();
+    this.begin = '';
+    this.end = '';
+    this.status = Status.CANCALLED;
+    this.date = new Date();
+  }
 }

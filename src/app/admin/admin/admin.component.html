@@ -1,42 +1,55 @@
-
-  
-  <div class="container-fluid">
-    <div class="row">
-      
-      <main class="col-md-12 ms-sm-auto col-lg-12 px-md-4" *ngIf="isAdmin()">
-        <div class="d-flex justify-content flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Admin Dashboard</h1>
+<div class="container-fluid">
+  <div class="row">
+    <main class="col-md-12 ms-sm-auto col-lg-12 px-md-4" *ngIf="isAdmin()">
+      <div
+        class="
+          d-flex
+          justify-content
+          flex-wrap flex-md-nowrap
+          align-items-center
+          pt-3
+          pb-2
+          mb-3
+          border-bottom
+        "
+      >
+        <h1 class="h2">Admin Dashboard</h1>
+        <div>
           <div>
-            <div >
-              <ul class="nav">
-                <li class="nav-item">
-                  <a class="nav-link active" (click)="paging(0)" style="cursor: pointer;">Users</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" (click)="paging(1)" style="cursor: pointer;">Routes</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" (click)="paging(2)" style="cursor: pointer;">Vehicles</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" (click)="paging(3)" style="cursor: pointer;">Tickets</a>
-                </li>
-              </ul>
-            </div>
+            <ul class="nav">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  (click)="paging(0)"
+                  style="cursor: pointer"
+                  >Users</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="paging(1)" style="cursor: pointer"
+                  >Routes</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="paging(2)" style="cursor: pointer"
+                  >Vehicles</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="paging(3)" style="cursor: pointer"
+                  >Tickets</a
+                >
+              </li>
+            </ul>
           </div>
-         
         </div>
-      
-        </main>
-      
-         
-         <app-users *ngIf="pageControl === 0"></app-users>
-         <app-routes *ngIf="pageControl === 1"></app-routes>
-         <app-vehicles *ngIf="pageControl === 2"></app-vehicles>
-         <app-tickets *ngIf="pageControl === 3"></app-tickets>
-
       </div>
+    </main>
+
+    <app-users *ngIf="pageControl === 0"></app-users>
+    <app-routes *ngIf="pageControl === 1"></app-routes>
+    <app-vehicles *ngIf="pageControl === 2"></app-vehicles>
+    <app-tickets *ngIf="pageControl === 3"></app-tickets>
   </div>
-  <!-- <app-todo></app-todo>
-  <app-users></app-users> -->
-  <router-outlet></router-outlet>
+</div>
+<router-outlet></router-outlet>

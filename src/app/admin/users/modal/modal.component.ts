@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user-model';
 import { AdminService } from 'src/app/services/admin.service';
+import { AlertifyService } from 'src/app/services/alertify.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 declare var $: any;
@@ -13,14 +15,16 @@ declare var $: any;
 export class ModalComponent implements OnInit {
 
   errorMessage : string = "";
+  currentUser : User = new User();
     
   roleList: any = ['ADMIN', 'USER']
   @Input() user: User = new User();
   @Output() save = new EventEmitter<any>();
 
-  constructor(private authService :AuthService, private adminService : AdminService) { }
+  constructor(private authService :AuthService, private adminService : AdminService, private router : Router, private alertifyService : AlertifyService) { }
 
   ngOnInit(): void {
+    this.currentUser = this.authService.currentUserValue;
   }
 
   saveUser() {
@@ -28,9 +32,18 @@ export class ModalComponent implements OnInit {
     this.adminService.saveUser(this.user).subscribe(data => {
       this.save.emit(data);
       $("#userSaveModal").modal("hide");
+      this.alertifyService.success("Kullanici kaydedildi.");
     }, err => {
-      this.errorMessage = 'Unexpected error occurred.';
-      console.log(err);
+      if (err?.status === 409) {
+        this.errorMessage = 'Username already exist.';
+        this.alertifyService.warning("Kullanici zaten kayitli.");
+      }
+      else {
+        this.errorMessage = err.error;
+        this.alertifyService.warning(this.errorMessage);
+        //console.log(err);
+      }
+      
     })
   }
 
@@ -39,11 +52,19 @@ export class ModalComponent implements OnInit {
     this.adminService.updateUser(this.user).subscribe(data => {
       this.save.emit(data);
       $("#userUpdateModal").modal("hide");
+      this.alertifyService.success("Kullanici guncellendi.");
+      if (data.role === 'USER' && data.id === this.authService.currentUserValue?.id){
+        this.authService.logOut();
+        this.router.navigate(['/login']);
+        this.alertifyService.warning("Bu sayfaya artik erisim hakkiniz yok.");
+      }
     }, err => {
       if (err?.status === 409) {
         this.errorMessage = 'Username already exist.';
+        this.alertifyService.warning("Kullanici adi daha onceden alinmis.");
       } else {
-        this.errorMessage = 'Unexpected error occurred. Error is: ' + err.error
+        this.errorMessage = err.error;
+        this.alertifyService.warning(this.errorMessage);
         console.log(err);
       }
     })

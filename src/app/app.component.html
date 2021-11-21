@@ -1,54 +1,52 @@
-
 <div class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="https://angular.io" class="navbar-brand ms-1">
-      <img
-        width="40"
-        alt="Ticket Logo"
-        src="https://i.imgur.com/OvMZBs9.jpg"
-      />
-      {{title}}
-    </a>
-  
-    <div class="navbar-nav me-auto">
-      <li class="nav-item" *ngIf="isAdmin()">
-        <a [routerLink]="['/admin']" routerLinkActive="active" class="nav-link">Admin</a>
-      </li>
-      <li class="nav-item">
-        <a [routerLink]="['/home']" routerLinkActive="active" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item" *ngIf="isAdmin() || isUser()">
-        <a [routerLink]="['/tickets']"  routerLinkActive="active" class="nav-link">My Tickets</a>
-      </li>
-    </div>
-    <div class="navbar-nav ms-auto" *ngIf="!currentUser?.id">
-      <li class="nav-item">
-        <a [routerLink]="['/register']" routerLinkActive="active" class="nav-link" >Sign Up</a>
-      </li>
-      
-      <li class="nav-item me-1">
-        <a [routerLink]="['/login']" routerLinkActive="active" class="nav-link">Sign In</a>
-      </li>
-    </div>
-  
-    <div class="navbar-nav ms-auto" *ngIf="currentUser?.id">
-      
-      <li class="nav-item">
-        <a [routerLink]="['/tickets']" routerLinkActive="active" class="nav-link" >
-          {{currentUser.username}}
-        </a>
-      </li>
-      <li class="nav-item me-1">
-        <a (click)="logOut()" class="nav-link"
-        style="cursor: pointer;">
-          Sign Out
-        </a>
-      </li>
-    </div>
-  
-    
-    
+  <a href="https://angular.io" class="navbar-brand ms-1">
+    <img width="50" alt="Ticket Logo" src="https://thumbs.dreamstime.com/b/tickets-vector-icon-isolated-black-background-181317603.jpg"/>
+    <!-- {{ title }} -->
+  </a>
+
+  <div class="navbar-nav me-auto">
+    <li class="nav-item" *ngIf="currentUser?.role === 'ADMIN'">
+      <a [routerLink]="['/admin']" routerLinkActive="active" class="nav-link"
+        >Admin</a
+      >
+    </li>
+    <li class="nav-item">
+      <a [routerLink]="['/home']" routerLinkActive="active" class="nav-link"
+        >Home</a
+      >
+    </li>
+    <li class="nav-item" *ngIf="currentUser?.id">
+      <a [routerLink]="['/tickets']" routerLinkActive="active" class="nav-link"
+        >My Tickets</a
+      >
+    </li>
   </div>
-  
-  
-  
-    <router-outlet></router-outlet>
+  <div class="navbar-nav ms-auto" *ngIf="!currentUser?.id">
+    <li class="nav-item">
+      <a [routerLink]="['/register']" routerLinkActive="active" class="nav-link"
+        >Sign Up</a
+      >
+    </li>
+
+    <li class="nav-item me-1">
+      <a [routerLink]="['/login']" routerLinkActive="active" class="nav-link"
+        >Sign In</a
+      >
+    </li>
+  </div>
+
+  <div class="navbar-nav ms-auto" *ngIf="currentUser?.id">
+    <li class="nav-item">
+      <a [routerLink]="['/tickets']" routerLinkActive="active" class="nav-link">
+        {{ currentUser.username }}
+      </a>
+    </li>
+    <li class="nav-item me-1">
+      <a (click)="logOut()" class="nav-link" style="cursor: pointer">
+        Sign Out
+      </a>
+    </li>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

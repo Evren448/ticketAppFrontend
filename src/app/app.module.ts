@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from "@angular/common";
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from './app-routing.module';
 import {HttpClientModule} from "@angular/common/http";
 import { AppComponent } from './app.component';
@@ -45,7 +46,8 @@ import { HomeComponent } from './guest/home/home.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

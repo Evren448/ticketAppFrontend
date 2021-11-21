@@ -62,7 +62,7 @@
   
             <div class="form-group">
               <label for="role">Role</label>
-              <select
+              <select 
                 class="form-control"
                 id="role"
                 name="role"
@@ -73,16 +73,7 @@
                 <option disabled>Select Role</option>
                 <option *ngFor="let role of roleList">{{ role }}</option>
               </select>
-  
-              <!-- <input
-                  type="text"
-                  id="role"
-                  name="role"
-                  class="form-control"
-                  [(ngModel)]="user.role"
-                  #role = "ngModel"
-                  required
-                /> -->
+
               <div class="alert-danger" *ngIf="f.submitted && !role.valid">
                 role is required.
               </div>
@@ -130,42 +121,10 @@
               </div>
             </div>
   
-            <!-- <div class="form-group">
-              <label for="username">Username</label>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                class="form-control"
-                [(ngModel)]="user.username"
-                #username="ngModel"
-                required
-              />
-              <div class="alert-danger" *ngIf="f.submitted && !username.valid">
-                Username required.
-              </div>
-            </div>
-  
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                class="form-control"
-                [(ngModel)]="user.password"
-                #password="ngModel"
-                required
-              />
-              <div class="alert-danger" *ngIf="f.submitted && !password.valid">
-                Password Time required.
-              </div>
-            </div> -->
-  
-            <div class="form-group">
+            <div *ngIf="currentUser.id !== user.id" class="form-group">
               <label for="role">Role</label>
   
-              <select
+              <select 
                 class="form-control"
                 id="role"
                 name="role"
@@ -176,16 +135,6 @@
                 <option disabled>Select Role</option>
                 <option *ngFor="let role of roleList">{{ role }}</option>
               </select>
-  
-              <!-- <input
-                  type="text"
-                  id="role"
-                  name="role"
-                  class="form-control"
-                  [(ngModel)]="user.role"
-                  #role = "ngModel"
-                  required
-                /> -->
               <div class="alert-danger" *ngIf="f.submitted && !role.valid">
                 role is required.
               </div>

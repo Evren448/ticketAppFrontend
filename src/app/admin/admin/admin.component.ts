@@ -6,17 +6,16 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  styleUrls: ['./admin.component.css'],
 })
 export class AdminComponent implements OnInit {
+  currentUser: User = new User();
+  pageControl: number = 0;
 
-  currentUser : User = new User();
-  pageControl : number = 0;
-
-  constructor(private auth$ : AuthService) { }
+  constructor(private auth$: AuthService) {}
 
   ngOnInit(): void {
-    this.auth$.currentUser.subscribe(data => {
+    this.auth$.currentUser.subscribe((data) => {
       this.currentUser = data;
     });
   }
@@ -25,11 +24,10 @@ export class AdminComponent implements OnInit {
     return this.currentUser?.role === Role.ADMIN;
   }
 
-  paging(control : number){
-    if(control > 2 && control < - 1){
+  paging(control: number) {
+    if (control > 2 && control < -1) {
       this.pageControl = -1;
     }
     this.pageControl = control;
-    
   }
 }

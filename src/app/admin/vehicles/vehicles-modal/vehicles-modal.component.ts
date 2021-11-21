@@ -6,20 +6,21 @@ import { VehicleService } from 'src/app/services/vehicle.service';
 
 declare var $: any;
 
-
 @Component({
   selector: 'app-vehicles-modal',
   templateUrl: './vehicles-modal.component.html',
-  styleUrls: ['./vehicles-modal.component.css']
+  styleUrls: ['./vehicles-modal.component.css'],
 })
 export class VehiclesModalComponent implements OnInit {
+  errorMessage: string = '';
 
-  errorMessage : string = "";
-    
-  routeList:  Array<Route> = [];
-  @Input() vehicle : Vehicle = new Vehicle();
+  routeList: Array<Route> = [];
+  @Input() vehicle: Vehicle = new Vehicle();
   @Output() save = new EventEmitter<any>();
-  constructor(private vehicleService : VehicleService, private routeService : RouteService) { }
+  constructor(
+    private vehicleService: VehicleService,
+    private routeService: RouteService
+  ) {}
 
   ngOnInit(): void {
     this.routeService.getAllRoutes().subscribe((data) => {
@@ -28,45 +29,44 @@ export class VehiclesModalComponent implements OnInit {
   }
 
   saveVehicle() {
-
-    this.vehicleService.saveVehicle(this.vehicle).subscribe(data => {
-      this.save.emit(data);
-      $("#vehicleSaveModal").modal("hide");
-    }, err => {
-      this.errorMessage = 'Unexpected error occurred.';
-      console.log(err);
-    })
+    this.vehicleService.saveVehicle(this.vehicle).subscribe(
+      (data) => {
+        this.save.emit(data);
+        $('#vehicleSaveModal').modal('hide');
+      },
+      (err) => {
+        this.errorMessage = err.error;
+        console.log(err);
+      }
+    );
   }
 
   updateVehicle() {
-
-    this.vehicleService.updateVehicle(this.vehicle).subscribe(data => {
-      this.save.emit(data);
-      $("#vehicleUpdateModal").modal("hide");
-    }, err => {
-      if (err?.status === 409) {
-        this.errorMessage = 'Vehicle already exist.';
-      } else {
-        this.errorMessage = 'Unexpected error occurred. Error is: ' + err.error
+    this.vehicleService.updateVehicle(this.vehicle).subscribe(
+      (data) => {
+        this.save.emit(data);
+        $('#vehicleUpdateModal').modal('hide');
+      },
+      (err) => {
+        this.errorMessage = err.error;
         console.log(err);
       }
-    })
+    );
   }
 
-  closeSaveModal(){
-    $("#vehicleSaveModal").modal("hide");
+  closeSaveModal() {
+    $('#vehicleSaveModal').modal('hide');
   }
 
-  closeUpdateModal(){
-    $("#vehicleUpdateModal").modal("hide");
+  closeUpdateModal() {
+    $('#vehicleUpdateModal').modal('hide');
   }
 
-  showSaveVehicleModal(){
-    $("#vehicleSaveModal").modal("show");
+  showSaveVehicleModal() {
+    $('#vehicleSaveModal').modal('show');
   }
 
-  showUpdateVehicleModal(){
-    $("#vehicleUpdateModal").modal("show");
+  showUpdateVehicleModal() {
+    $('#vehicleUpdateModal').modal('show');
   }
-
 }

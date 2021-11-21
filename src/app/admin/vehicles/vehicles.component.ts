@@ -6,19 +6,18 @@ import { VehiclesModalComponent } from './vehicles-modal/vehicles-modal.componen
 @Component({
   selector: 'app-vehicles',
   templateUrl: './vehicles.component.html',
-  styleUrls: ['./vehicles.component.css']
+  styleUrls: ['./vehicles.component.css'],
 })
 export class VehiclesComponent implements OnInit {
-
-  begin : string = "";
-  end : string = "";
+  begin: string = '';
+  end: string = '';
 
   vehicleList: Array<Vehicle> = [];
   selectedVehicle: Vehicle = new Vehicle();
   errorMessage: string = '';
 
   @ViewChild(VehiclesModalComponent) child: VehiclesModalComponent | undefined;
-  constructor(private vehicleService : VehicleService) { }
+  constructor(private vehicleService: VehicleService) {}
 
   ngOnInit(): void {
     this.vehicleService.getAllVehicles().subscribe((data) => {
@@ -37,7 +36,9 @@ export class VehiclesComponent implements OnInit {
   }
 
   saveVehicleWatcher(vehicle: Vehicle) {
-    let itemIndex = this.vehicleList.findIndex((item) => item.id === vehicle.id);
+    let itemIndex = this.vehicleList.findIndex(
+      (item) => item.id === vehicle.id
+    );
     if (itemIndex !== -1) {
       this.vehicleList[itemIndex] = vehicle;
     } else {
@@ -51,20 +52,26 @@ export class VehiclesComponent implements OnInit {
         this.vehicleList.splice(ind, 1);
       },
       (err) => {
-        this.errorMessage = 'Admin kullanicilar silinemez.';
+        this.errorMessage = err.error;
         console.log(err);
       }
     );
   }
 
-  clickme(){
-
-    this.vehicleService.getAllVehiclesRoute(this.begin,this.end).subscribe(data =>{
-      this.vehicleList = data;
-    }, err =>{
-      this.errorMessage = err.error.message;
-      
-    })
+  searchList() {
+    this.vehicleService.getAllVehiclesRoute(this.begin, this.end).subscribe(
+      (data) => {
+        this.vehicleList = data;
+      },
+      (err) => {
+        this.errorMessage = err.error;
+      }
+    );
   }
 
+  resetList(){
+    this.ngOnInit();
+    this.begin = "";
+    this.end = "";
+  }
 }

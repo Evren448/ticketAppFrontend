@@ -8,7 +8,7 @@ export class AlertifyService {
   constructor() { }
 
   success(message: string) {
-    alertify.success(message);
+    alertify.success(message, 3);
   }
 
   error(message: string) {

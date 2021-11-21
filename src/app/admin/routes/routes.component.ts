@@ -6,16 +6,15 @@ import { RouteModalComponent } from './route-modal/route-modal.component';
 @Component({
   selector: 'app-routes',
   templateUrl: './routes.component.html',
-  styleUrls: ['./routes.component.css']
+  styleUrls: ['./routes.component.css'],
 })
 export class RoutesComponent implements OnInit {
-
   routeList: Array<Route> = [];
   selectedRoute: Route = new Route();
   errorMessage: string = '';
 
   @ViewChild(RouteModalComponent) child: RouteModalComponent | undefined;
-  constructor(private routeService : RouteService) { }
+  constructor(private routeService: RouteService) {}
 
   ngOnInit(): void {
     this.routeService.getAllRoutes().subscribe((data) => {
@@ -48,10 +47,11 @@ export class RoutesComponent implements OnInit {
         this.routeList.splice(ind, 1);
       },
       (err) => {
-        this.errorMessage = 'Admin kullanicilar silinemez.';
-        console.log(err);
+        if (err?.status === 400) {
+          this.errorMessage = err.error;
+        }
+        this.errorMessage = err.error;
       }
     );
   }
-
 }
