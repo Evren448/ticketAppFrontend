@@ -1,0 +1,8 @@
+{
+    "name" : "ticketappfronted",
+    "buildpacks" :[
+        {
+            "url" : "heroku/nodejs"
+        }
+    ]
+}
